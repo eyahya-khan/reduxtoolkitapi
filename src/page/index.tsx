@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../hooks";
 import { fetchPost } from "../store/index";
-import ReactPaginate from "react-paginate";
+// import ReactPaginate from "react-paginate";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const PostList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,11 +17,12 @@ const PostList = () => {
   const [searchTitle, setSearchTitle] = useState("");
   // pagination
   const [pageNumber, setPageNumber] = useState(0);
-  const postPerPage = 10;
+  const postPerPage = 8;
   const visitedPost = pageNumber * postPerPage;
   const displayPost = posts
     .slice(visitedPost, visitedPost + postPerPage)
     //search
+    // eslint-disable-next-line array-callback-return
     .filter((value) => {
       if (searchTitle === "") {
         return value;
@@ -29,11 +32,12 @@ const PostList = () => {
         return value;
       }
     })
-    .map((post) => <li>{post.title}</li>);
+    .map((post) => <li key={post.title}>{post.title}</li>);
 
   const countPage = Math.ceil(posts.length / postPerPage);
-  const ChangePage = ({ selected }: any) => {
-    setPageNumber(selected);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPageNumber(value - 1);
   };
 
   useEffect(() => {
@@ -48,7 +52,7 @@ const PostList = () => {
     return <div>{error}</div>;
   }
   return (
-    <div className="App">
+    <Stack className="App">
       <h2>Post List</h2>
       <input
         type="text"
@@ -56,18 +60,14 @@ const PostList = () => {
         onChange={(e) => setSearchTitle(e.target.value)}
       />
       {displayPost}
-      <ReactPaginate
-        previousLabel={"Prev"}
-        nextLabel={"Next"}
-        pageCount={countPage}
-        onPageChange={ChangePage}
-        containerClassName={"paginationBttns"}
-        previousLinkClassName={"previousBttn"}
-        nextLinkClassName={"nextBttn"}
-        disabledClassName={"paginationDisabled"}
-        activeClassName={"paginationAcive"}
+      <Pagination
+        count={countPage}
+        page={pageNumber + 1}
+        variant="outlined"
+        shape="rounded"
+        onChange={handleChange}
       />
-    </div>
+    </Stack>
   );
 };
 

@@ -4,7 +4,7 @@
 - cd reduxtoolkitapi
 - npm install @reduxjs/toolkit axios react-redux
 - npm install react-paginate
-
+- npm install @mui/material @emotion/react @emotion/styled
 
 ## Folder structure
 ### step-1
