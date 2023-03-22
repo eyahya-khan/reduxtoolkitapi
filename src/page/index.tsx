@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../hooks";
 import { fetchPost } from "../store/index";
-// import ReactPaginate from "react-paginate";
 import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 
 const PostList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -52,7 +50,7 @@ const PostList = () => {
     return <div>{error}</div>;
   }
   return (
-    <Stack className="App">
+    <>
       <h2>Post List</h2>
       <input
         type="text"
@@ -67,7 +65,7 @@ const PostList = () => {
         shape="rounded"
         onChange={handleChange}
       />
-    </Stack>
+    </>
   );
 };
 
