@@ -45,3 +45,9 @@
   color: white;
   background-color: #2b2eff;
 }
+
+.paginationDisplay {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
